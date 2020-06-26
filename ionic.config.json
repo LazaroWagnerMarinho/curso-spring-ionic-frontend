@@ -1,0 +1,7 @@
+{
+  "name": "curso-spring-ionic-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
