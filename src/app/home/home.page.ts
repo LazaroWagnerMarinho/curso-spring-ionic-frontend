@@ -8,11 +8,16 @@ import { MenuController, NavController } from '@ionic/angular';
 })
 export class HomePage {
 
-  constructor(private menu: MenuController, public NavCrtl: NavController) { }
+  constructor(
+    public menu: MenuController, 
+    public NavCtrl: NavController) { }
 
- login(){
-   
-   this.NavCrtl.navigateBack('categorias');
-
+ login(){   
+   this.NavCtrl.navigateBack('categorias');
  }
+
+ ionViewWillEnter(){
+   this.menu.swipeGesture(false);
+ }
+
 }
