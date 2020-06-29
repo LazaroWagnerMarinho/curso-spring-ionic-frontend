@@ -27,14 +27,9 @@ export class CategoriasPage implements OnInit {
     .subscribe(response => {
       this.items = response;
     },
-    error => {
-      console.log(error);
-    });
+    error => {});
   }
 
-  descr(){
-    console.log("oi oi oi");
-  }
   openFirst() {
     this.menu.enable(false, 'first');
     this.menu.open('first');
