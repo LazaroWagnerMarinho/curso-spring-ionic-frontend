@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaService } from 'src/services/domain/categoria.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
+import { AuthService } from 'src/services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
     ErrorInterceptorProvider,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

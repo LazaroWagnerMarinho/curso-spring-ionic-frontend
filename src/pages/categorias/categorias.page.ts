@@ -35,14 +35,6 @@ export class CategoriasPage implements OnInit {
     this.menu.open('first');
   }
 
-  // ionViewWillEnter(){
-  //   this.menu.swipeGesture(false);
-  // }
-
-  // ionViewDidLeave(){
-  //   this.menu.swipeGesture(false);
-  // }
-
   home(){
    
     this.NavCtrl.navigateBack('home');
