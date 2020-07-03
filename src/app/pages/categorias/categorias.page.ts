@@ -10,6 +10,7 @@ import { API_CONFIG } from 'src/config/api.config';
   styleUrls: ['./categorias.page.scss'],
 })
 export class CategoriasPage implements OnInit {
+  categoria: string = 'Categorias';
 
   bucketUrl: string = API_CONFIG.bucketbaseUrl;
 

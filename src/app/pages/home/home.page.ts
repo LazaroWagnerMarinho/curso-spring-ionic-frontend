@@ -32,7 +32,11 @@ export class HomePage {
     }
 
  ionViewWillEnter(){
-   this.menu.swipeGesture(false);
+   this.menu.enable(false);
  }
+
+ ionViewDidLeave() {
+  this.menu.enable(true);
+}
 
 }
