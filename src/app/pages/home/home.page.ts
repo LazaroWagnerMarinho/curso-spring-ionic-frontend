@@ -22,6 +22,24 @@ export class HomePage {
     public NavCtrl: NavController,
     public auth: AuthService) { }
 
+    
+    ionViewWillEnter(){
+      this.menu.enable(false);
+    }
+    
+    ionViewDidLeave() {
+      this.menu.enable(true);
+    }
+
+    ionViewDidEnter(){
+      this.auth.refreshToken()
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.NavCtrl.navigateBack('categorias');
+      },
+      error => {});  
+    }
+    
     login(){   
       this.auth.authenticate(this.creds)
       .subscribe(response => {
@@ -30,13 +48,5 @@ export class HomePage {
       },
       error => {});   
     }
-
- ionViewWillEnter(){
-   this.menu.enable(false);
- }
-
- ionViewDidLeave() {
-  this.menu.enable(true);
-}
 
 }
