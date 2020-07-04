@@ -6,7 +6,6 @@ import { retry, catchError } from 'rxjs/operators';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor{
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        console.log("Passou no interceptor");
         return next.handle(request)
         .pipe(
             retry(1),
