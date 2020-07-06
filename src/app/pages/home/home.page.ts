@@ -19,8 +19,9 @@ export class HomePage {
 
   constructor(
     public menu: MenuController, 
-    public NavCtrl: NavController,
-    public auth: AuthService) { }
+    public navCtrl: NavController,
+    public auth: AuthService,
+    ) { }
 
     
     ionViewWillEnter(){
@@ -35,7 +36,7 @@ export class HomePage {
       this.auth.refreshToken()
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization'));
-        this.NavCtrl.navigateBack('categorias');
+        this.navCtrl.navigateBack('categorias');
       },
       error => {});  
     }
@@ -44,9 +45,13 @@ export class HomePage {
       this.auth.authenticate(this.creds)
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization'));
-        this.NavCtrl.navigateBack('categorias');
+        this.navCtrl.navigateBack('categorias');
       },
       error => {});   
+    }
+
+    signup(){
+      this.navCtrl.navigateForward('signup');
     }
 
 }

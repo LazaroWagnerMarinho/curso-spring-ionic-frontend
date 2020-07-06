@@ -14,7 +14,7 @@
         <ion-input [(ngModel)]="creds.senha" name="senha" type="password"></ion-input>
       </ion-item>
       <ion-button expand="block" (click)='login()' >Entrar</ion-button>
-      <ion-button expand="block" color="warning">Registrar</ion-button>
+      <ion-button expand="block" (click)='signup()' color="warning">Registrar</ion-button>
     </div>
   </form>
 
