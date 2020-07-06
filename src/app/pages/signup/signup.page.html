@@ -76,20 +76,49 @@
       <ion-input clearInput inputmode="tel" formControlName="telefone3" type="tel"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Estado*</ion-label>
+      <ion-label>Estado*</ion-label>
       <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
-        <ion-radio value="1">Minas Gerais</ion-radio>
-        <ion-radio value="2">São Paulo</ion-radio>
+        <ion-select-option *ngFor="let estado of estados; first as f" [value]="estado.id">  
+          {{estado.nome}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Cidade*</ion-label>
+      <ion-label>Cidade*</ion-label>
       <ion-select formControlName="cidadeId">
-        <ion-radio value="1">Uberlândia</ion-radio>
-        <ion-radio value="2">Campinas</ion-radio>
+        <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.id">
+          {{cidade.nome}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-button ion-button block type="submit">Criar conta</ion-button>
   </form>
+
+  <!-- <ion-list>
+    <ion-list-header>
+      <ion-label>
+        Single Selection
+      </ion-label>
+    </ion-list-header>
+  
+    <ion-item>
+      <ion-label>Gender</ion-label>
+      <ion-select placeholder="Select One">
+        <ion-select-option value="f">Female</ion-select-option>
+        <ion-select-option value="m">Male</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Hair Color</ion-label>
+      <ion-select value="brown" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="brown">Brown</ion-select-option>
+        <ion-select-option value="blonde">Blonde</ion-select-option>
+        <ion-select-option value="black">Black</ion-select-option>
+        <ion-select-option value="red">Red</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+  </ion-list> -->
 
 </ion-content>
