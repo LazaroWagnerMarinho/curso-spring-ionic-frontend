@@ -8,17 +8,17 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="signupUser(); $event.preventDefault()">
+  <form [formGroup]="formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
     <ion-item>
       <ion-label position="floating">Nome*</ion-label>
-      <ion-input name="nome" required="true" clearInput type="text"></ion-input>
+      <ion-input formControlName="nome" required="true" clearInput type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Email*</ion-label>
-      <ion-input name="email" required="true" clearInput type="email"></ion-input>
+      <ion-input formControlName="email" required="true" clearInput type="email"></ion-input>
     </ion-item>
     <ion-list>
-      <ion-radio-group 	allow-empty-selection name="tipo">
+      <ion-radio-group 	allow-empty-selection formControlName="tipo">
         <ion-list-header>
           <ion-label>
             Tipo de cliente
@@ -37,54 +37,54 @@
 
     <ion-item>
       <ion-label position="floating">CPF ou CNPJ</ion-label>
-      <ion-input clearInput required="true" name="cpfOuCnpj" type="text"></ion-input>
+      <ion-input clearInput required="true" formControlName="cpfOuCnpj" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Senha*</ion-label>
-      <ion-input clearInput required="true" name="senha" type="password"></ion-input>
+      <ion-input formControlName="senha" type="password"></ion-input>
     </ion-item> 
     <ion-item>
       <ion-label position="floating">Logradouro*</ion-label>
-      <ion-input clearInput required="true" name="logradouro" type="text"></ion-input>
+      <ion-input clearInput required="true" formControlName="logradouro" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Número*</ion-label>
-      <ion-input clearInput required="true" name="numero" type="text"></ion-input>
+      <ion-input clearInput required="true" formControlName="numero" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Complemento</ion-label>
-      <ion-input clearInput name="complemento" type="text"></ion-input>
+      <ion-input clearInput formControlName="complemento" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Bairro</ion-label>
-      <ion-input clearInput name="bairro" required="true" type="text"></ion-input>
+      <ion-input clearInput formControlName="bairro" required="true" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">CEP*</ion-label>
-      <ion-input clearInput name="cep" required="true" maxlength='8' type="number"></ion-input>
+      <ion-input clearInput formControlName="cep" required="true" maxlength='8' type="number"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Telefone 1*</ion-label>
-      <ion-input clearInput inputmode="tel" required="true" name="telefone1" type="tel"></ion-input>
+      <ion-input clearInput inputmode="tel" required="true" formControlName="telefone1" type="tel"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Telefone 2</ion-label>
-      <ion-input clearInput inputmode="tel" name="telefone2" type="tel"></ion-input>
+      <ion-input clearInput inputmode="tel" formControlName="telefone2" type="tel"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Telefone 3</ion-label>
-      <ion-input clearInput inputmode="tel" name="telefone3" type="tel"></ion-input>
+      <ion-input clearInput inputmode="tel" formControlName="telefone3" type="tel"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Estado*</ion-label>
-      <ion-select name="estadoId" (ionChange)="updateCidades()">
+      <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
         <ion-radio value="1">Minas Gerais</ion-radio>
         <ion-radio value="2">São Paulo</ion-radio>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Cidade*</ion-label>
-      <ion-select name="cidadeId">
+      <ion-select formControlName="cidadeId">
         <ion-radio value="1">Uberlândia</ion-radio>
         <ion-radio value="2">Campinas</ion-radio>
       </ion-select>
