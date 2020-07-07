@@ -13,10 +13,12 @@
       <ion-label position="floating">Nome*</ion-label>
       <ion-input formControlName="nome" required="true" clearInput type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls['nome'].dirty && formGroup.controls['nome'].errors" margin-left>Valor invalido</p>
     <ion-item>
       <ion-label position="floating">Email*</ion-label>
       <ion-input formControlName="email" required="true" clearInput type="email"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor invalido</p>
     <ion-list>
       <ion-radio-group 	allow-empty-selection formControlName="tipo">
         <ion-list-header>
@@ -34,23 +36,26 @@
         </ion-item>
       </ion-radio-group>      
     </ion-list>
-
     <ion-item>
       <ion-label position="floating">CPF ou CNPJ</ion-label>
       <ion-input clearInput required="true" formControlName="cpfOuCnpj" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls['cpfOuCnpj'].dirty && formGroup.controls['cpfOuCnpj'].errors" margin-left>Valor invalido</p>
     <ion-item>
       <ion-label position="floating">Senha*</ion-label>
       <ion-input formControlName="senha" type="password"></ion-input>
-    </ion-item> 
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>Valor invalido</p>
     <ion-item>
       <ion-label position="floating">Logradouro*</ion-label>
       <ion-input clearInput required="true" formControlName="logradouro" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls['logradouro'].dirty && formGroup.controls['logradouro'].errors" margin-left>Valor invalido</p>
     <ion-item>
       <ion-label position="floating">Número*</ion-label>
       <ion-input clearInput required="true" formControlName="numero" type="text"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.numero.dirty && formGroup.controls.numero.errors" margin-left>Valor invalido</p>
     <ion-item>
       <ion-label position="floating">Complemento</ion-label>
       <ion-input clearInput formControlName="complemento" type="text"></ion-input>
@@ -63,10 +68,12 @@
       <ion-label position="floating">CEP*</ion-label>
       <ion-input clearInput formControlName="cep" required="true" maxlength='8' type="number"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls['cep'].dirty && formGroup.controls['cep'].errors" margin-left>Valor invalido</p>
     <ion-item>
       <ion-label position="floating">Telefone 1*</ion-label>
       <ion-input clearInput inputmode="tel" required="true" formControlName="telefone1" type="tel"></ion-input>
     </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.telefone1.dirty && formGroup.controls.telefone1.errors" margin-left>Valor invalido</p>
     <ion-item>
       <ion-label position="floating">Telefone 2</ion-label>
       <ion-input clearInput inputmode="tel" formControlName="telefone2" type="tel"></ion-input>
@@ -91,34 +98,7 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button ion-button block type="submit">Criar conta</ion-button>
+    <ion-button ion-button block type="submit" [disabled]="formGroup.invalid">Criar conta</ion-button>
   </form>
-
-  <!-- <ion-list>
-    <ion-list-header>
-      <ion-label>
-        Single Selection
-      </ion-label>
-    </ion-list-header>
-  
-    <ion-item>
-      <ion-label>Gender</ion-label>
-      <ion-select placeholder="Select One">
-        <ion-select-option value="f">Female</ion-select-option>
-        <ion-select-option value="m">Male</ion-select-option>
-      </ion-select>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Hair Color</ion-label>
-      <ion-select value="brown" okText="Okay" cancelText="Dismiss">
-        <ion-select-option value="brown">Brown</ion-select-option>
-        <ion-select-option value="blonde">Blonde</ion-select-option>
-        <ion-select-option value="black">Black</ion-select-option>
-        <ion-select-option value="red">Red</ion-select-option>
-      </ion-select>
-    </ion-item>
-  
-  </ion-list> -->
 
 </ion-content>
