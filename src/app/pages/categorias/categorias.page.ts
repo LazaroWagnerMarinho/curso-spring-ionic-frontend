@@ -42,4 +42,8 @@ export class CategoriasPage implements OnInit {
  
   }
 
+  showProdutos(){
+    this.NavCtrl.navigateForward('produtos')
+  }
+
 }

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>produtos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-item-group>
+    <ion-item *ngFor="let item of items">
+      <ion-thumbnail>
+        <img [src]="item.imageUrl || 'assets/imgs/prod.jpg'"/>
+      </ion-thumbnail>
+      <h2> {{item.nome}} </h2>
+      <p> {{item.preco | currency}} </p>
+    </ion-item>
+  </ion-item-group>  
+  
+</ion-content>
