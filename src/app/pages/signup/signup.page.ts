@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams, AlertController } from '@ionic/angular';
 import { CidadeService } from 'src/services/domain/cidade.service';
 import { EstadoService } from 'src/services/domain/estado.service';
 import { EstadoDTO } from 'src/models/estado.dto';
 import { CidadeDTO } from 'src/models/cidade.dto';
+import { ClienteService } from 'src/services/domain/cliente.service';
 
 @Component({
   selector: 'app-signup',
@@ -18,9 +19,12 @@ export class SignupPage implements OnInit {
   cidades: CidadeDTO[];
 
   constructor(
+    public navCtrl: NavController,
     public formBuilder:FormBuilder,
     public cidadeService: CidadeService,
-    public estadoService: EstadoService) {
+    public estadoService: EstadoService,
+    public cliente: ClienteService,
+    public alertCtrl: AlertController) {
 
       this.formGroup = this.formBuilder.group({
         nome: ['Lázaro', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -65,7 +69,42 @@ export class SignupPage implements OnInit {
   }
 
   signupUser(){
-    console.log(this.formGroup.value)
+    this.cliente.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+      error => {})
   }
+
+  async showInsertOk(){
+    const alert = await this.alertCtrl.create({
+      header: 'Sucesso!',      
+      message: 'Cadastro efetuado com sucesso',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: "OK",
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  // async handleDefault(errorObj){
+  //   const alert = await this.alertCtrl.create({
+  //       cssClass: 'my-custom-class',
+  //       header: `Erro ${errorObj.status}:`,
+  //       subHeader: errorObj.error,
+  //       message: errorObj.message,
+  //       backdropDismiss: false,
+  //       buttons: ['OK']
+  //   });
+  //   await alert.present();
+    
+  // }
+
 
 }
