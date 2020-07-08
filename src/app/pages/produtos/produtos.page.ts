@@ -40,7 +40,9 @@ export class ProdutosPage implements OnInit {
     }
   }
 
-  showDetail(){
+  showDetail(produto_id:any){
+
+    this.navParams.data = produto_id;
     this.navCtrl.navigateForward('produto-detail')
   }
 }
