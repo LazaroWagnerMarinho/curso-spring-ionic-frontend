@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDTO } from 'src/models/produto.dto';
 import { ProdutoService } from 'src/services/domain/produto.service';
-import { NavParams } from '@ionic/angular';
+import { NavParams, NavController } from '@ionic/angular';
 import { API_CONFIG } from 'src/config/api.config';
+import { CartService } from 'src/services/domain/cart.service';
 
 @Component({
   selector: 'app-produto-detail',
@@ -16,8 +17,10 @@ export class ProdutoDetailPage implements OnInit {
   item: ProdutoDTO;
 
   constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public produtoService: ProdutoService,
+    public cartService: CartService,
   ) { }
 
   ngOnInit() {
@@ -36,6 +39,11 @@ export class ProdutoDetailPage implements OnInit {
       .subscribe(response => {
         this.item.imageUrl = `${API_CONFIG.bucketbaseUrl}/prod${this.item.id}.jpg`;
       })
+  }
+
+  addToCart(produto: ProdutoDTO){
+    this.cartService.addProduto(produto);
+    this.navCtrl.navigateForward('cartPage')
   }
 
 }
