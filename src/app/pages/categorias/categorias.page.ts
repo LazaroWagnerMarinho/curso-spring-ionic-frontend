@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController, NavParams } from '@ionic/angular';
 import { CategoriaService } from 'src/services/domain/categoria.service';
 import { CategoriaDTO } from 'src/models/categoria.dto';
 import { API_CONFIG } from 'src/config/api.config';
@@ -10,7 +10,10 @@ import { API_CONFIG } from 'src/config/api.config';
   styleUrls: ['./categorias.page.scss'],
 })
 export class CategoriasPage implements OnInit {
+
   categoria: string = 'Categorias';
+
+  
 
   bucketUrl: string = API_CONFIG.bucketbaseUrl;
 
@@ -19,6 +22,7 @@ export class CategoriasPage implements OnInit {
   constructor(
     public menu: MenuController,
     public NavCtrl: NavController,
+    public navParams: NavParams,
     public categoriaService: CategoriaService) {
 
      }
@@ -42,8 +46,10 @@ export class CategoriasPage implements OnInit {
  
   }
 
-  showProdutos(){
-    this.NavCtrl.navigateForward('produtos')
+  showProdutos(categoria_id){
+    this.navParams.data = categoria_id;
+    this.NavCtrl.navigateForward('produtos');
+    
   }
 
 }

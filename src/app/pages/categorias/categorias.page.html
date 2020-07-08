@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">  
-    <ion-item button *ngFor="let item of items" (click)="showProdutos()">
+    <ion-item button *ngFor="let item of items" (click)="showProdutos(item.id)">
       <ion-thumbnail slot="start" >
         <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
       </ion-thumbnail>

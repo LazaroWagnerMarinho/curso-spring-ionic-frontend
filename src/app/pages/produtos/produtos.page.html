@@ -14,9 +14,8 @@
       <ion-thumbnail>
         <img [src]="item.imageUrl || 'assets/imgs/prod.jpg'"/>
       </ion-thumbnail>
-      <h2> {{item.nome}} </h2>
-      <p> {{item.preco | currency}} </p>
+      <ion-list> {{item.nome}} </ion-list>
+      <ion-list slot="end"> {{item.preco | currency}} </ion-list>
     </ion-item>
   </ion-item-group>  
-  
 </ion-content>
