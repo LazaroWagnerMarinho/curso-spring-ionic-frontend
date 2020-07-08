@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDTO } from 'src/models/produto.dto';
-import { NavParams } from '@ionic/angular';
+import { NavParams, NavController } from '@ionic/angular';
 import { ProdutoService } from 'src/services/domain/produto.service';
 import { API_CONFIG } from 'src/config/api.config';
 
@@ -16,6 +16,7 @@ export class ProdutosPage implements OnInit {
   constructor(
     public navParams: NavParams,
     public produtoService: ProdutoService,
+    public navCtrl: NavController,
   ) { }
 
   ngOnInit() {
@@ -37,5 +38,9 @@ export class ProdutosPage implements OnInit {
         },
         error => {});
     }
+  }
+
+  showDetail(){
+    this.navCtrl.navigateForward('produto-detail')
   }
 }

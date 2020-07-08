@@ -10,7 +10,7 @@
 
 <ion-content class="ion-padding">
   <ion-item-group>
-    <ion-item *ngFor="let item of items">
+    <ion-item *ngFor="let item of items" (click)="showDetail()">
       <ion-thumbnail>
         <img [src]="item.imageUrl || 'assets/imgs/prod.jpg'"/>
       </ion-thumbnail>
