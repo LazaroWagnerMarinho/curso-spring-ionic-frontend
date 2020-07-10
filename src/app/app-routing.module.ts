@@ -35,6 +35,11 @@ const routes: Routes = [
     path: 'cartPage',
     loadChildren: () => import('./pages/cart/cart.module').then( m => m.CartPageModule)
   },
+  {
+    path: 'pickEnddress',
+    loadChildren: () => import('./pages/pick-enddress/pick-enddress.module').then( m => m.PickEnddressPageModule)
+  },
+
 
 
 ];

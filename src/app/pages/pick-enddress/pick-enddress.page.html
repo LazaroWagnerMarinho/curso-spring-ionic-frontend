@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ pickEnddress }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Selecione um endereço</ion-label>
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item *ngFor="let item of items">
+        <ion-label>
+          <h2>{{item.logradouro}}, {{item.numero}} </h2>
+          <p>{{item.complemento}} {{item.bairro}} </p>
+          <p>{{item.cidade.nome}}, {{item.cidade.estado.nome}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+</ion-content>

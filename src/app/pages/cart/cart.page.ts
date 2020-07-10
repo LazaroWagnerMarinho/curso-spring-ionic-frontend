@@ -40,17 +40,17 @@ export class CartPage implements OnInit {
   }
 
   removeItem(produto: ProdutoDTO) {
-    console.log("Oi remover")
+    
     this.items = this.cartService.removeProduto(produto).items;
   }
 
   increaseQuantity(produto: ProdutoDTO) {
-    console.log("Oi +")
+    
     this.items = this.cartService.increaseQuantity(produto).items;
   }
 
   decreaseQuantity(produto: ProdutoDTO) {
-    console.log("Oi -")
+    
     this.items = this.cartService.decreaseQuantity(produto).items;
   }
 
@@ -60,6 +60,10 @@ export class CartPage implements OnInit {
 
   goOn(){
     this.navCtrl.navigateRoot('categorias');
+  }
+
+  finalizarPedido(){
+    this.navCtrl.navigateForward('pickEnddress');
   }
 
 }
