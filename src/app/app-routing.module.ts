@@ -38,7 +38,11 @@ const routes: Routes = [
   {
     path: 'pickEnddress',
     loadChildren: () => import('./pages/pick-enddress/pick-enddress.module').then( m => m.PickEnddressPageModule)
+  },  {
+    path: 'payment',
+    loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
   },
+
 
 
 
