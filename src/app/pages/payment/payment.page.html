@@ -23,12 +23,20 @@
       </ion-item>      
     </ion-radio-group>
 
-    <ion-item *ngIf="formGroup.value['@type'] == 'pagamentoComBoleto'">
-      <ion-label>Parcelas no boleto</ion-label>
-      <ion-select value="" multiple="true">
-        <ion-select-option *ngFor="let n of parcelas; first as f" [value]="n">{{n}}</ion-select-option>
+    <ion-item *ngIf="formGroup.value['@type'] == 'pagamentoComCartao';else pagamentoComBoletoV">
+      <ion-label>Parcelas no Cartão</ion-label>
+      <ion-select formControlName="numeroDeParcelas" >
+        <ion-select-option *ngFor="let n of parcelas" [value]="n">{{n}}</ion-select-option>
       </ion-select>
     </ion-item>
+    <ng-template #pagamentoComBoletoV>
+    <ion-item>
+      <ion-label>Parcelas no boleto</ion-label>
+      <ion-select formControlName="numeroDeParcelas" >
+        <ion-select-option [value]="1" select="true">1</ion-select-option>
+      </ion-select>
+    </ion-item>
+    </ng-template>
     <ion-button type="submit" [disabled]="formGroup.invalid">Próximo</ion-button>
   </form>
 

@@ -11,7 +11,7 @@ import { NavController, NavParams } from '@ionic/angular';
 })
 export class PaymentPage implements OnInit {
 
-  pedido: PedidoDTO;
+  pedido: any;
 
   parcelas: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -20,21 +20,24 @@ export class PaymentPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
 
-    this.pedido = this.navParams.get('pedido');
-
+    this.pedido = this.navParams.data;
+    
 
     this.formGroup = this.formBuilder.group({
-      numeroDeParcelas: [1, Validators.required],
       "@type": ["pagamentoComCartao", Validators.required],
+      numeroDeParcelas: [1, Validators.required],
     })
    }
 
-
-
   ngOnInit() {
+  }
+
+  nextPage(){
+    this.pedido.pagamento = this.formGroup.value;
+    console.log(this.pedido);
   }
 
 }
