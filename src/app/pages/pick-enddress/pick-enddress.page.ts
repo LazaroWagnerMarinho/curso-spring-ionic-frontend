@@ -60,7 +60,6 @@ export class PickEnddressPage implements OnInit {
 
   nextPage(item: EnderecoDTO){
     this.pedido.enderecoDeEntrega = {id: item.id}
-    console.log(this.pedido);
     this.navParams.data = this.pedido;
     this.router.navigate(['payment'])
   }

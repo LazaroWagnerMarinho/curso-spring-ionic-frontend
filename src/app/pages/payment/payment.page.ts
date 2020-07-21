@@ -37,7 +37,8 @@ export class PaymentPage implements OnInit {
 
   nextPage(){
     this.pedido.pagamento = this.formGroup.value;
-    console.log(this.pedido);
+    this.navParams.data = this.pedido;
+    this.navCtrl.navigateRoot('order-confirmation')
   }
 
 }
