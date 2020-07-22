@@ -6,6 +6,7 @@ import { CartService } from 'src/services/domain/cart.service';
 import { ClienteDTO } from 'src/models/cliente.dto';
 import { EnderecoDTO } from 'src/models/endereco.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
+import { PedidoService } from 'src/services/domain/pedido.service';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -27,6 +28,7 @@ export class OrderConfirmationPage implements OnInit {
     private navParams: NavParams,
     public cartService: CartService,
     public clienteService: ClienteService,
+    public pedidoService: PedidoService,
   ) { 
 
     this.pedido = this.navParams.data;
@@ -56,4 +58,20 @@ export class OrderConfirmationPage implements OnInit {
     return this.cartService.total();
   }
 
+  back(){
+    this.navCtrl.navigateRoot('cartPage')
+  }
+
+  checkout(){
+    this.pedidoService.insert(this.pedido)
+      .subscribe(response => {
+        this.cartService.creatOrClearCart();
+        console.log(response.headers.get('location'));
+      },
+      error => {
+        if(error.status == 403){
+          this.navCtrl.navigateRoot('home');
+        }
+      })
+  }
 }
