@@ -25,6 +25,10 @@ export class ProdutosPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.loadData();
+  }
+
+  loadData(){
     this.loader = null;
     let categoria_id:any = this.navParams.data
     this.loadngCtrl.present();
@@ -54,5 +58,13 @@ export class ProdutosPage implements OnInit {
 
     this.navParams.data = produto_id;
     this.navCtrl.navigateForward('produto-detail')
-  }  
+  }
+  
+
+  doRefresh(event) {
+    this.loadData();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
 }
