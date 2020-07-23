@@ -5,6 +5,8 @@ import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { API_CONFIG } from 'src/config/api.config';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { PhotoService } from 'src/app/services/photo.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -24,10 +26,16 @@ export class ProfilePage implements OnInit {
     public storage: StorageService,
     public clienteService: ClienteService,
     private camera: Camera,
+    public photoService: PhotoService
 
   ) { }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData(){
+
     let localUser = this.storage.getLocalUser();
     if( localUser && localUser.email){
       this.clienteService.findByEmail(localUser.email)
@@ -44,6 +52,7 @@ export class ProfilePage implements OnInit {
     else {
       this.navCtrl.navigateBack('home');
     }
+
   }
 
   getImageIfExists() {
@@ -70,6 +79,25 @@ export class ProfilePage implements OnInit {
     }, (err) => {
         alert("error "+JSON.stringify(err))
     });
+  }
+
+  sendPicture(){
+    this.clienteService.uploadPicture(this.picture)
+      .subscribe(response => {
+        this.picture = null;
+        this.loadData();
+      },
+      error => {
+
+      });
+  }
+
+  cancel(){
+    this.picture = null;
+  }
+
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
   }
 
 }

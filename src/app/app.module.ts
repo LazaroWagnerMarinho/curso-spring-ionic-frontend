@@ -18,6 +18,7 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 import { ProdutoService } from 'src/services/domain/produto.service';
 import { CartService } from 'src/services/domain/cart.service';
 import { LoadingService } from 'src/services/domain/loading.service';
+import { ImageUtilService } from 'src/services/image-util.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +42,7 @@ import { LoadingService } from 'src/services/domain/loading.service';
     NavParams,
     CartService,
     LoadingService,
+    ImageUtilService,
   ],
   bootstrap: [AppComponent]
 })
