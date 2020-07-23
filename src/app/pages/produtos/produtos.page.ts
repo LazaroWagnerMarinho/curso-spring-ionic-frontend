@@ -13,9 +13,10 @@ import { LoadingService } from 'src/services/domain/loading.service';
 })
 export class ProdutosPage implements OnInit {
 
-  items : ProdutoDTO[];
+  items : ProdutoDTO[] = [];
   loader: HTMLIonLoadingElement;
   isLoading = false;
+  page: number = 0;
 
   constructor(
     public navParams: NavParams,
@@ -32,10 +33,14 @@ export class ProdutosPage implements OnInit {
     this.loader = null;
     let categoria_id:any = this.navParams.data
     this.loadngCtrl.present();
-    this.produtoService.findByCategoria(categoria_id)
+    this.produtoService.findByCategoria(categoria_id, this.page, 10)
       .subscribe(response => {
-        this.items = response['content'];
-        this.loadImageUrls();
+        let start = this.items.length;
+        this.items = this.items.concat(response['content']);
+        let end = this.items.length - 1;
+        console.log(this.page);
+        console.log(this.items);
+        this.loadImageUrls(start, end);
         this.loadngCtrl.dismiss();
       },
       error => {
@@ -43,8 +48,8 @@ export class ProdutosPage implements OnInit {
       });
   }
 
-  loadImageUrls(){
-    for (var i=0; i<this.items.length; i++){
+  loadImageUrls(start: number, end: number){
+    for (var i=start; i < end; i++){
       let item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.id)
         .subscribe(response => {
@@ -62,6 +67,16 @@ export class ProdutosPage implements OnInit {
   
 
   doRefresh(event) {
+    this.page = 0;
+    this.items = [];
+    this.loadData();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
+  ionInfinite(event) {
+    this.page++;
     this.loadData();
     setTimeout(() => {
       event.target.complete();

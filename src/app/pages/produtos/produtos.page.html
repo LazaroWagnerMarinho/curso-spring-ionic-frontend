@@ -30,5 +30,13 @@
       <ion-list class="textProd"> {{item.nome}} </ion-list>
       <ion-list slot="end"> {{item.preco | currency}} </ion-list>
     </ion-item>
-  </ion-item-group>  
+  </ion-item-group>
+  
+  
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="ionInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
