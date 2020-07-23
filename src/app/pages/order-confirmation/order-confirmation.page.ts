@@ -7,6 +7,7 @@ import { ClienteDTO } from 'src/models/cliente.dto';
 import { EnderecoDTO } from 'src/models/endereco.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { PedidoService } from 'src/services/domain/pedido.service';
+import { LoadingService } from 'src/services/domain/loading.service';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -29,7 +30,8 @@ export class OrderConfirmationPage implements OnInit {
     private navParams: NavParams,
     public cartService: CartService,
     public clienteService: ClienteService,
-    public pedidoService: PedidoService,    
+    public pedidoService: PedidoService,   
+    public loadngCtrl: LoadingService, 
   ) { 
 
     this.pedido = this.navParams.data;
@@ -38,11 +40,12 @@ export class OrderConfirmationPage implements OnInit {
 
   ngOnInit() {
     this.cartItems = this.cartService.getCart().items;
-
+    this.loadngCtrl.present();
     this.clienteService.findById(this.pedido.cliente.id)
       .subscribe(response => {
         this.cliente = response as ClienteDTO;
         this.endereco = this.findEndereco(this.pedido.enderecoDeEntrega.id, response['enderecos']);
+        this.loadngCtrl.dismiss();
       },
       error => {
         this.navCtrl.navigateForward('home')
@@ -68,10 +71,12 @@ export class OrderConfirmationPage implements OnInit {
   }
 
   checkout(){
+    this.loadngCtrl.present();
     this.pedidoService.insert(this.pedido)
       .subscribe(response => {
         this.cartService.creatOrClearCart();
         this.codPedido = this.extractId(response.headers.get('location'));
+        this.loadngCtrl.dismiss();
       },
       error => {
         if(error.status == 403){

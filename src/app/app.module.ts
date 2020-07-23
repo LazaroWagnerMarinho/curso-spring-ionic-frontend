@@ -17,6 +17,7 @@ import { ClienteService } from 'src/services/domain/cliente.service';
 import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 import { ProdutoService } from 'src/services/domain/produto.service';
 import { CartService } from 'src/services/domain/cart.service';
+import { LoadingService } from 'src/services/domain/loading.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +39,8 @@ import { CartService } from 'src/services/domain/cart.service';
     ClienteService,
     ProdutoService,
     NavParams,
-    CartService
+    CartService,
+    LoadingService,
   ],
   bootstrap: [AppComponent]
 })
