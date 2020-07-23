@@ -4,6 +4,7 @@ import { StorageService } from 'src/services/storage.service';
 import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { API_CONFIG } from 'src/config/api.config';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -11,16 +12,19 @@ import { API_CONFIG } from 'src/config/api.config';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  profile: string = "Profile"
-
+  profile: string = "Profile";
+  
   cliente: ClienteDTO;
-  // email: string;
+  picture: string;
+  cameraOn: boolean = false;
+  
 
   constructor(
     public navCtrl: NavController,
-    // public navParams: NavParams,
     public storage: StorageService,
     public clienteService: ClienteService,
+    private camera: Camera,
+
   ) { }
 
   ngOnInit() {
@@ -48,6 +52,24 @@ export class ProfilePage implements OnInit {
         this.cliente.imageUrl = `${API_CONFIG.bucketbaseUrl}/cp${this.cliente.id}.jpg`;
       },
       error => {});
+  }
+
+  getCameraPicture(){
+
+    this.cameraOn = true;
+
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      this.picture = 'data:image/png;base64,' + imageData;
+      this.cameraOn = false;
+    }, (err) => {
+        alert("error "+JSON.stringify(err))
+    });
   }
 
 }
