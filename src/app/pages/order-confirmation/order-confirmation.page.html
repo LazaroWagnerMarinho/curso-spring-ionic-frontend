@@ -3,75 +3,93 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ ordeConfimation }}</ion-title>
+    <ion-title *ngIf='!codPedido'>{{ ordeConfimation }}</ion-title>
+    <ion-title *ngIf='codPedido'>{{ ordeRegistrado }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Itens do pedido</ion-card-title>
-    </ion-card-header>    
-    <ion-list>
-      <ion-item *ngFor='let item of cartItems'>
-        <ion-thumbnail>
-          <img [src]="item.produto.imageUrl || 'assets/imgs/prod.jpg'"/>
-        </ion-thumbnail>
-        <ion-label class="detailText">
-          <h2> {{item.produto.nome}} </h2>
-          <p> {{item.produto.preco | currency}} </p>
-          <p> Quantidade: {{item.quantidade}} </p>
-        </ion-label>
-        <p slot="end"> {{item.produto.preco * item.quantidade | currency }} </p>
-      </ion-item>
+  <div *ngIf='!codPedido'>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Itens do pedido</ion-card-title>
+      </ion-card-header>    
+      <ion-list>
+        <ion-item *ngFor='let item of cartItems'>
+          <ion-thumbnail>
+            <img [src]="item.produto.imageUrl || 'assets/imgs/prod.jpg'"/>
+          </ion-thumbnail>
+          <ion-label class="detailText">
+            <h2> {{item.produto.nome}} </h2>
+            <p> {{item.produto.preco | currency}} </p>
+            <p> Quantidade: {{item.quantidade}} </p>
+          </ion-label>
+          <p slot="end"> {{item.produto.preco * item.quantidade | currency }} </p>
+        </ion-item>
 
+        <ion-item>
+          <h2> Total </h2>
+          <h2 slot='end'> {{total() | currency}} </h2>
+        </ion-item>
+      </ion-list>    
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>      
+        <ion-card-title>Cliente</ion-card-title>
+      </ion-card-header>
       <ion-item>
-        <h2> Total </h2>
-        <h2 slot='end'> {{total() | currency}} </h2>
+        <ion-label>
+          <h2>{{cliente?.nome}}</h2>
+          <p>{{cliente?.email}}</p>
+        </ion-label>
       </ion-item>
-    </ion-list>    
-  </ion-card>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>      
-      <ion-card-title>Cliente</ion-card-title>
-    </ion-card-header>
-    <ion-item>
-      <ion-label>
-        <h2>{{cliente?.nome}}</h2>
-        <p>{{cliente?.email}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-card>
+    <ion-card>
+      <ion-card-header>      
+        <ion-card-title>Endereço de entrega</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-label>
+          <h2>{{endereco?.logradouro}}, {{endereco?.nnumero}} </h2>
+          <p>{{endereco?.complemento}}, {{endereco?.bairro}} CEP {{endereco?.cep}} </p>
+          <p>{{endereco?.cidade.nome}}, {{endereco?.cidade.estado.nome}} </p>
+        </ion-label>
+      </ion-item>    
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>      
-      <ion-card-title>Endereço de entrega</ion-card-title>
-    </ion-card-header>
-    <ion-item>
-      <ion-label>
-        <h2>{{endereco?.logradouro}}, {{endereco?.nnumero}} </h2>
-        <p>{{endereco?.complemento}}, {{endereco?.bairro}} CEP {{endereco?.cep}} </p>
-        <p>{{endereco?.cidade.nome}}, {{endereco?.cidade.estado.nome}} </p>
-      </ion-label>
-    </ion-item>    
-  </ion-card>
+    <ion-card>
+      <ion-card-header>      
+        <ion-card-title>Pagamento</ion-card-title>
+      </ion-card-header>
+      <ion-item *ngIf="pedido.pagamento['@type']=='pagamentoComCartao'">
+        <ion-label>
+        <h2> Pagamento Com Cartão </h2>
+        <p>Parcelas: {{pedido.pagamento.numeroDeParcelas}} </p>
+        </ion-label>      
+      </ion-item>
+      <ion-item *ngIf="pedido.pagamento['@type']=='pagamentoComBoleto'">
+        <h2> Pagamento Com Boleto </h2>
+      </ion-item>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>      
-      <ion-card-title>Pagamento</ion-card-title>
-    </ion-card-header>
-    <ion-item *ngIf="pedido.pagamento['@type']=='pagamentoComCartao'">
-      <ion-label>
-      <h2> Pagamento Com Cartão </h2>
-      <p>Parcelas: {{pedido.pagamento.numeroDeParcelas}} </p>
-      </ion-label>      
-    </ion-item>
-    <ion-item *ngIf="pedido.pagamento['@type']=='pagamentoComBoleto'">
-      <h2> Pagamento Com Boleto </h2>
-    </ion-item>
-  </ion-card>
+    <ion-button expand="full" block outline color="success" (click)="checkout()">Confirmar pedido</ion-button>
+    <ion-button expand="full" block outline (click)="back()">Voltar</ion-button>
+  </div>
 
-  <ion-button expand="full" block outline color="success" (click)="checkout()">Confirmar pedido</ion-button>
-  <ion-button expand="full" block outline (click)="back()">Voltar</ion-button>
+  <div *ngIf="codPedido">
+    <ion-card>
+        <ion-card-header>
+          <ion-card-title>Seu Pedido foi Registrado!</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+          <ion-label>
+            <h2>Código do pedido: {{codPedido}} </h2>
+            <p>Verifique seu email</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+      <ion-button expand="full" block outline (click)="home()">Voltar</ion-button> 
+    </div>  
 </ion-content>

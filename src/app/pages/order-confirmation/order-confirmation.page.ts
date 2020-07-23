@@ -16,19 +16,20 @@ import { PedidoService } from 'src/services/domain/pedido.service';
 export class OrderConfirmationPage implements OnInit {
 
   ordeConfimation: string = 'Confira seu pedido';
+  ordeRegistrado: string = 'Pedido registrado';
 
   pedido: any;
   cartItems: CartItem[];
   cliente: ClienteDTO;
   endereco: EnderecoDTO;
-  
+  codPedido: string;
 
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
     public cartService: CartService,
     public clienteService: ClienteService,
-    public pedidoService: PedidoService,
+    public pedidoService: PedidoService,    
   ) { 
 
     this.pedido = this.navParams.data;
@@ -62,16 +63,25 @@ export class OrderConfirmationPage implements OnInit {
     this.navCtrl.navigateRoot('cartPage')
   }
 
+  home(){
+    this.navCtrl.navigateRoot('home')
+  }
+
   checkout(){
     this.pedidoService.insert(this.pedido)
       .subscribe(response => {
         this.cartService.creatOrClearCart();
-        console.log(response.headers.get('location'));
+        this.codPedido = this.extractId(response.headers.get('location'));
       },
       error => {
         if(error.status == 403){
           this.navCtrl.navigateRoot('home');
         }
       })
+  }
+
+  private extractId(location: string) : string {
+    let position = location.lastIndexOf('/');
+    return location.substring(position + 1, location.length);
   }
 }
