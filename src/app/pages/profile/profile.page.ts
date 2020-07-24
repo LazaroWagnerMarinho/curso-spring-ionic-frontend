@@ -4,8 +4,8 @@ import { StorageService } from 'src/services/storage.service';
 import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { API_CONFIG } from 'src/config/api.config';
-// import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { PhotoService } from 'src/app/services/photo.service';
+import { PhotoService } from 'src/services/photo.service';
+import { CameraPhoto } from '@capacitor/core';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class ProfilePage implements OnInit {
   profile: string = "Profile";
   
   cliente: ClienteDTO;
-  picture: string;
+  picture: any;
   cameraOn: boolean = false;
   
 
@@ -25,10 +25,11 @@ export class ProfilePage implements OnInit {
     public navCtrl: NavController,
     public storage: StorageService,
     public clienteService: ClienteService,
-    // private camera: Camera,
-    public photoService: PhotoService
+    public photoService: PhotoService,
 
-  ) { }
+  ) { 
+    this.picture = false;
+  }
 
   ngOnInit() {
     this.loadData();
@@ -63,24 +64,6 @@ export class ProfilePage implements OnInit {
       error => {});
   }
 
-  // getCameraPicture(){
-
-  //   this.cameraOn = true;
-
-  //   const options: CameraOptions = {
-  //     quality: 100,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     mediaType: this.camera.MediaType.PICTURE,
-  //   }
-  //   this.camera.getPicture(options).then((imageData) => {
-  //     this.picture = 'data:image/png;base64,' + imageData;
-  //     this.cameraOn = false;
-  //   }, (err) => {
-  //       alert("error "+JSON.stringify(err))
-  //   });
-  // }
-
   sendPicture(){
     this.clienteService.uploadPicture(this.picture)
       .subscribe(response => {
@@ -98,6 +81,7 @@ export class ProfilePage implements OnInit {
 
   addPhotoToGallery() {
     this.photoService.addNewToGallery();
+    this.picture = this.photoService.photos;
   }
 
 }

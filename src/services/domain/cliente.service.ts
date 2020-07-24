@@ -5,6 +5,7 @@ import { ClienteDTO } from 'src/models/cliente.dto';
 import { API_CONFIG } from 'src/config/api.config';
 import { StorageService } from '../storage.service';
 import { ImageUtilService } from '../image-util.service';
+import { CameraPhoto } from '@capacitor/core';
 
 @Injectable()
 export class ClienteService {
@@ -43,14 +44,14 @@ export class ClienteService {
         );
     }
 
-    uploadPicture(picture){
-        let pictureBlob = this.imageUtilService.dataUriToBlob(picture);
-        let formData: FormData = new FormData();
-        formData.set('file', pictureBlob, 'file.png');
+    uploadPicture(picture: CameraPhoto){
+        // let pictureBlob = this.imageUtilService.dataUriToBlob(picture);
+        // let formData: FormData = new FormData();
+        // formData.set('file', pictureBlob, 'file.png');
 
         return this.http.post(
             `${API_CONFIG.baseUrl}/clientes/picture`, 
-            formData,
+            picture,
             {
                 observe: 'response',
                 responseType: 'text'
