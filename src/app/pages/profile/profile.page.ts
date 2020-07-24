@@ -65,6 +65,7 @@ export class ProfilePage implements OnInit {
   }
 
   sendPicture(){
+    this.picture = this.photoService.uriPhotos;
     this.clienteService.uploadPicture(this.picture)
       .subscribe(response => {
         this.picture = null;
@@ -76,10 +77,11 @@ export class ProfilePage implements OnInit {
   }
 
   cancel(){
-    this.picture = null;
+    this.photoService.photos = null;
   }
 
   addPhotoToGallery() {
+    this.photoService.photos = [];
     this.photoService.addNewToGallery();
     this.picture = this.photoService.photos;
   }

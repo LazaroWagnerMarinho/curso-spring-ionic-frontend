@@ -44,7 +44,7 @@ export class ClienteService {
         );
     }
 
-    uploadPicture(picture: CameraPhoto){
+    uploadPicture(picture: string){
         // let pictureBlob = this.imageUtilService.dataUriToBlob(picture);
         // let formData: FormData = new FormData();
         // formData.set('file', pictureBlob, 'file.png');
