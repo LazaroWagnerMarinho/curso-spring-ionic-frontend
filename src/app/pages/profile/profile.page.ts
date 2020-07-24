@@ -5,7 +5,7 @@ import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { API_CONFIG } from 'src/config/api.config';
 import { PhotoService } from 'src/services/photo.service';
-import { CameraPhoto } from '@capacitor/core';
+
 
 
 @Component({

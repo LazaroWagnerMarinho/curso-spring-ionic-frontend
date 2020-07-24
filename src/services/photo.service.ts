@@ -17,8 +17,10 @@ export class PhotoService {
   public uriPhotos: string;
 
   constructor(
-    // public uriPhoto: ProfilePage,
-  ) { }
+  
+  ) {
+    
+   }
 
   public async addNewToGallery() {
 
@@ -27,10 +29,13 @@ export class PhotoService {
       source: CameraSource.Camera, 
       quality: 100 
     });
+    
+    
 
-    const savedImagegeFile = await this.savePicture(capturedPhoto);
-    this.photos.unshift(savedImagegeFile);
-    this.uriPhotos = savedImagegeFile.webviewPath + savedImagegeFile.filepath;
+    const savedImageFile = await this.savePicture(capturedPhoto);
+    this.photos.unshift(savedImageFile);
+    this.uriPhotos = savedImageFile.base64;
+    // this.uriPhotos = savedImagegeFile.webviewPath;
   
     // this.photos.unshift({
     //   filepath: "soon...",
@@ -41,16 +46,19 @@ export class PhotoService {
   private async savePicture(cameraPhoto: CameraPhoto){
     const base64Data = await this.readAsBase64(cameraPhoto);
 
-    const fileName = new Date().getTime() + '.jpeg';
+    const fileName = new Date().getTime() + '.png';
     const savedFile = await Filesystem.writeFile({
       path: fileName,
       data: base64Data,
       directory: FilesystemDirectory.Data
     });
+
+    this.uriPhotos = base64Data;
     
     return {
       filepath: fileName,
       webviewPath: cameraPhoto.webPath,
+      base64: base64Data,
     };
   }
 
@@ -70,9 +78,6 @@ export class PhotoService {
     reader.readAsDataURL(blob)
   })
 
-  // pegarUri() : string{
-  //   return this.uriPhotos;
-  // }
 }
 
 
