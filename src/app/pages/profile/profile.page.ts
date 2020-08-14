@@ -86,23 +86,21 @@ export class ProfilePage implements OnInit {
 
   }
 
+  sendPicture(){
+    // this.picture = this.photoService.uriPhotos;
+    this.clienteService.uploadPicture(this.picture)
+      .subscribe(response => {
+        this.picture = null;
+        this.loadData();
+      },
+      error => {
 
+      });
+  }
 
-  // sendPicture(){
-  //   this.picture = this.photoService.uriPhotos;
-  //   this.clienteService.uploadPicture(this.picture)
-  //     .subscribe(response => {
-  //       this.picture = null;
-  //       this.loadData();
-  //     },
-  //     error => {
-
-  //     });
-  // }
-
-  // cancel(){
-  //   this.photoService.photos = null;
-  // }
+  cancel(){
+    this.picture = null;
+  }
 
   // addPhotoToGallery() {
   //   this.photoService.photos = [];
