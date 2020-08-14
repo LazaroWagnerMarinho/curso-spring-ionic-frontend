@@ -5,6 +5,7 @@ import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { API_CONFIG } from 'src/config/api.config';
 import { PhotoService } from 'src/services/photo.service';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 
 
@@ -17,7 +18,7 @@ export class ProfilePage implements OnInit {
   profile: string = "Profile";
   
   cliente: ClienteDTO;
-  picture: any;
+  picture: string;
   cameraOn: boolean = false;
   
 
@@ -26,9 +27,10 @@ export class ProfilePage implements OnInit {
     public storage: StorageService,
     public clienteService: ClienteService,
     public photoService: PhotoService,
+    public camera: Camera,
 
   ) { 
-    this.picture = false;
+    // this.picture = false;
   }
 
   ngOnInit() {
@@ -64,26 +66,48 @@ export class ProfilePage implements OnInit {
       error => {});
   }
 
-  sendPicture(){
-    this.picture = this.photoService.uriPhotos;
-    this.clienteService.uploadPicture(this.picture)
-      .subscribe(response => {
-        this.picture = null;
-        this.loadData();
-      },
-      error => {
 
-      });
+  getCameraPicture(){
+
+    this.cameraOn = true;
+
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     this.picture = 'data:image/png;base64,' + imageData;
+     this.cameraOn = false;
+    }, (err) => {
+    });
+
   }
 
-  cancel(){
-    this.photoService.photos = null;
-  }
 
-  addPhotoToGallery() {
-    this.photoService.photos = [];
-    this.photoService.addNewToGallery();
-    this.picture = this.photoService.photos;
-  }
+
+  // sendPicture(){
+  //   this.picture = this.photoService.uriPhotos;
+  //   this.clienteService.uploadPicture(this.picture)
+  //     .subscribe(response => {
+  //       this.picture = null;
+  //       this.loadData();
+  //     },
+  //     error => {
+
+  //     });
+  // }
+
+  // cancel(){
+  //   this.photoService.photos = null;
+  // }
+
+  // addPhotoToGallery() {
+  //   this.photoService.photos = [];
+  //   this.photoService.addNewToGallery();
+  //   this.picture = this.photoService.photos;
+  // }
 
 }

@@ -18,7 +18,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   ],
   declarations: [ProfilePage],
   providers:[
-    
+    Camera
   ]
 })
 export class ProfilePageModule {}
