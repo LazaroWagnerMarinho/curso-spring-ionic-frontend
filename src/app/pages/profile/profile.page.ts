@@ -6,6 +6,7 @@ import { ClienteService } from 'src/services/domain/cliente.service';
 import { API_CONFIG } from 'src/config/api.config';
 import { PhotoService } from 'src/services/photo.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { LoadingService } from 'src/services/domain/loading.service';
 
 
 
@@ -26,6 +27,7 @@ export class ProfilePage implements OnInit {
     public navCtrl: NavController,
     public storage: StorageService,
     public clienteService: ClienteService,
+    public loadngCtrl: LoadingService,
     public photoService: PhotoService,
     public camera: Camera,
 
@@ -77,11 +79,35 @@ export class ProfilePage implements OnInit {
       encodingType: this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE
     }
-    
+    this.loadngCtrl.present();
     this.camera.getPicture(options).then((imageData) => {
      this.picture = 'data:image/png;base64,' + imageData;
      this.cameraOn = false;
+     this.loadngCtrl.dismiss();
     }, (err) => {
+      this.loadngCtrl.dismiss();
+    });
+
+  }
+
+  getGalleryPicture(){
+
+    this.cameraOn = true;
+
+    const options: CameraOptions = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.loadngCtrl.present();
+    this.camera.getPicture(options).then((imageData) => {
+     this.picture = 'data:image/png;base64,' + imageData;
+     this.cameraOn = false;
+     this.loadngCtrl.dismiss();
+    }, (err) => {
+      this.loadngCtrl.dismiss();
     });
 
   }
@@ -92,20 +118,15 @@ export class ProfilePage implements OnInit {
       .subscribe(response => {
         this.picture = null;
         this.loadData();
+        this.loadngCtrl.dismiss();
       },
       error => {
-
+        this.loadngCtrl.dismiss();
       });
   }
 
   cancel(){
     this.picture = null;
   }
-
-  // addPhotoToGallery() {
-  //   this.photoService.photos = [];
-  //   this.photoService.addNewToGallery();
-  //   this.picture = this.photoService.photos;
-  // }
 
 }

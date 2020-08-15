@@ -48,6 +48,7 @@ export class OrderConfirmationPage implements OnInit {
         this.loadngCtrl.dismiss();
       },
       error => {
+        this.loadngCtrl.dismiss();
         this.navCtrl.navigateForward('home')
       })
   }
@@ -79,6 +80,7 @@ export class OrderConfirmationPage implements OnInit {
         this.loadngCtrl.dismiss();
       },
       error => {
+        this.loadngCtrl.dismiss();
         if(error.status == 403){
           this.navCtrl.navigateRoot('home');
         }
