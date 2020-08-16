@@ -85,6 +85,7 @@ export class ProfilePage implements OnInit {
      this.cameraOn = false;
      this.loadngCtrl.dismiss();
     }, (err) => {
+      this.cameraOn = false;
       this.loadngCtrl.dismiss();
     });
 
@@ -107,13 +108,14 @@ export class ProfilePage implements OnInit {
      this.cameraOn = false;
      this.loadngCtrl.dismiss();
     }, (err) => {
+      this.cameraOn = false;
       this.loadngCtrl.dismiss();
     });
 
   }
 
   sendPicture(){
-    // this.picture = this.photoService.uriPhotos;
+    this.loadngCtrl.present();
     this.clienteService.uploadPicture(this.picture)
       .subscribe(response => {
         this.picture = null;
